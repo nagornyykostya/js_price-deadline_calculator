@@ -38,7 +38,7 @@ describe('getTimeEstimate', () => {
     });
 });
 
-describe('getTimeEstimate', () => {
+describe('getFinishTime', () => {
   test.each`
   minutes | currentKievTime                           | expected
   ${60}   | ${new Date('November 01, 2019 10:00:00')} | ${new Date('November 01, 2019 11:00:00')}

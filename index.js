@@ -6,7 +6,7 @@ const getTimeEstimate = function (multiplier, textLength, language) {
     return totalMinutes < 60 ? 60 : totalMinutes;
 }
 const milisecPerMin = 60000;
-const getCurrentKievTime = () => { new Date((Date.now() + ((new Date()).getTimezoneOffset() + 120) * milisecPerMin)) };
+const currentKievTime = new Date((Date.now() + ((new Date()).getTimezoneOffset() + 120) * milisecPerMin));
 const getFinishTime = function (time, currentKievTime) {
     let finishTime = new Date(currentKievTime.getTime() + (time * milisecPerMin));
     const workTime = {
@@ -23,7 +23,7 @@ const getFinishTime = function (time, currentKievTime) {
         const workingDaysNeed = time / 60 / workTime.hours;
         const workingHoursLast = workingDaysNeed % 1;
         let weekEnds = 0;
-        const totalCalendarTimeNeed = (((Math.floor(workingDaysNeed) + weekEnds) * 24) + (workingHoursLast * workTime.hours)) * 60 * milisecPerMin;
+        const totalTimeNeed = (((Math.floor(workingDaysNeed) + weekEnds) * 24) + (workingHoursLast * workTime.hours)) * 60 * milisecPerMin;
         let i = Math.floor(workingDaysNeed);
         let dayOfWeek = currentKievTime.getDay();
         while (i > 0) {
@@ -40,19 +40,18 @@ const getFinishTime = function (time, currentKievTime) {
                 dayOfWeek = 0;
             }
         }
-        finishTime = new Date(currentKievTime.getTime() + totalCalendarTimeNeed);
+        finishTime = new Date(currentKievTime.getTime() + totalTimeNeed);
         if (finishTime.getHours() < workTime.start || finishTime.getHours() >= workTime.end) {
-            finishTime = new Date(finishTime.getTime() + ((24 - workTime.hours) * 60 * milisecPerMin));
+            finishTime.setMilliseconds((24 - workTime.hours) * 60 * milisecPerMin);
         }
         if (finishTime.getDay() === 6) {
-            finishTime = new Date(finishTime.getTime() + ((48) * 60 * milisecPerMin));
+            finishTime.setMilliseconds(48 * 60 * milisecPerMin)
         } else if (finishTime.getDay() === 0) {
-            finishTime = new Date(finishTime.getTime() + ((24) * 60 * milisecPerMin));
+            finishTime.setMilliseconds(24 * 60 * milisecPerMin)
         }
     }
     return finishTime
 }
-console.log(getFinishTime(540, (new Date('November 07, 2019 10:30:00'))))
 module.exports = {
     getCost,
     getTimeEstimate,
