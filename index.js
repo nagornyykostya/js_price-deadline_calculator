@@ -16,7 +16,7 @@ const getFinishTime = function (time, currentKievTime) {
     }
     if (time <= workTime.hours &&
         finishTime.getHours() >= workTime.start &&
-        finishTime.getHours() <= workTime.end &&
+        finishTime.getHours() < workTime.end &&
         finishTime.getDay() >= 1 &&
         finishTime.getDay() <= 5) {
     } else {
@@ -41,19 +41,20 @@ const getFinishTime = function (time, currentKievTime) {
             }
         }
         finishTime = new Date(currentKievTime.getTime() + totalCalendarTimeNeed);
-        if (finishTime.getHours() <= workTime.start || finishTime.getHours() >= workTime.end) {
+        if (finishTime.getHours() < workTime.start || finishTime.getHours() >= workTime.end) {
             finishTime = new Date(finishTime.getTime() + ((24 - workTime.hours) * 60 * milisecPerMin));
         }
         if (finishTime.getDay() === 6) {
-            finishTime = new Date(finishTime.getTime() + ((72 - workTime.hours) * 60 * milisecPerMin));
+            finishTime = new Date(finishTime.getTime() + ((48) * 60 * milisecPerMin));
         } else if (finishTime.getDay() === 0) {
-            finishTime = new Date(finishTime.getTime() + ((48 - workTime.hours) * 60 * milisecPerMin));
+            finishTime = new Date(finishTime.getTime() + ((24) * 60 * milisecPerMin));
         }
     }
     return finishTime
 }
-
+console.log(getFinishTime(540, (new Date('November 07, 2019 10:30:00'))))
 module.exports = {
     getCost,
-    getTimeEstimate
+    getTimeEstimate,
+    getFinishTime
 };
