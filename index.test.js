@@ -42,10 +42,17 @@ describe('getFinishTime', () => {
   test.each`
   minutes | currentKievTime                           | expected
   ${60}   | ${new Date('November 01, 2019 10:00:00')} | ${new Date('November 01, 2019 11:00:00')}
+  ${6000} | ${new Date('November 01, 2019 15:00:00')} | ${new Date('November 18, 2019 16:00:00')}
+  ${60}   | ${new Date('November 02, 2019 10:00:00')} | ${new Date('November 04, 2019 11:00:00')}
+  ${60}   | ${new Date('November 02, 2019 15:00:00')} | ${new Date('November 04, 2019 16:00:00')}
+  ${600}  | ${new Date('November 02, 2019 15:00:00')} | ${new Date('November 05, 2019 16:00:00')}
+  ${60}   | ${new Date('November 03, 2019 11:00:00')} | ${new Date('November 04, 2019 12:00:00')}
   ${600}  | ${new Date('November 01, 2019 10:00:00')} | ${new Date('November 04, 2019 11:00:00')}
   ${450}  | ${new Date('November 04, 2019 13:00:00')} | ${new Date('November 05, 2019 11:30:00')}
   ${1620} | ${new Date('November 06, 2019 17:30:00')} | ${new Date('November 11, 2019 17:30:00')}
-  ${7023} | ${new Date('November 07, 2019 18:30:00')} | ${new Date('November 20, 2019 18:33:00')}
+  ${7023} | ${new Date('November 07, 2019 18:30:00')} | ${new Date('November 26, 2019 18:33:00')}
+
+
   `('returns $expected when $minutes & $currentKievTime',
     ({ minutes, currentKievTime, expected }) => {
       expect(functions.getFinishTime(minutes, currentKievTime)).toEqual(expected);
