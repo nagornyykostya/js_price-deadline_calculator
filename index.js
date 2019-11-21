@@ -30,14 +30,14 @@ const getFinishTime = function (time, currentKievTime) {
                 dayOfWeek++;
                 i--;
             }
-            if (dayOfWeek === 0) {
-                weekEnds++;
-                dayOfWeek++;
-            }
             if (dayOfWeek === 6) {
                 weekEnds++;
                 dayOfWeek = 0;
             }
+            if (dayOfWeek === 0) {
+                weekEnds++;
+                dayOfWeek++;
+            } 
         }
         const totalTimeNeed = (((Math.floor(workingDaysNeed) + weekEnds) * 24) + (workingHoursLast * workTime.hours)) * 60 * milisecPerMin;
         finishTime = new Date(currentKievTime.getTime() + totalTimeNeed);
