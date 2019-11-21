@@ -45,9 +45,9 @@ const getFinishTime = function (time, currentKievTime) {
             finishTime.setMilliseconds((24 - workTime.hours) * 60 * milisecPerMin);
         }
         if (finishTime.getDay() === 6) {
-            finishTime.setMilliseconds(48 * 60 * milisecPerMin)
+            finishTime.setMilliseconds(48 * 60 * milisecPerMin);
         } else if (finishTime.getDay() === 0) {
-            finishTime.setMilliseconds(24 * 60 * milisecPerMin)
+            finishTime.setMilliseconds(24 * 60 * milisecPerMin);
         }
     }
     return finishTime
